@@ -1,4 +1,5 @@
-""" FEEL FREE TO GIVE SUGGESTIONS ON HOW TO IMPROVE THIS :D """
+# Current year, change at January 1, {year + 1}
+year = 2021
 
 """
 [
@@ -11,17 +12,17 @@
 
 Into:
 
-+-----------+------+------------------+
-| Name      | year | ID (10 chars)    |
-+-----------+------+------------------+
-| Name      | year | ID (10 chars)    |
-+-----------+------+------------------+
-| Name      | year | ID (10 chars)    |
-+-----------+------+------------------+
-| Name      | year | ID (10 chars)    |
-+-----------+------+------------------+
-| Name      | year | ID (10 chars)    |
-+-----------+------+------------------+
++-------+------+---------------+
+| Name1 | year | ID (10 chars) |
++-------+------+---------------+
+| Name2 | year | ID (10 chars) |
++-------+------+---------------+
+| Name3 | year | ID (10 chars) |
++-------+------+---------------+
+| Name4 | year | ID (10 chars) |
++-------+------+---------------+
+| Name5 | year | ID (10 chars) |
++-------+------+---------------+
 
 And everything will be sorted by name, year, or ID (depending on user input)
 
@@ -44,22 +45,24 @@ def getMainLst(rows):
         name = str(input("\nEnter name of person {}: ".format(row + 1)))
         # Check if any numbers are in name
         while not name.replace(' ', '').isalpha():
+            print("That is not a valid name,\nMake sure to only use English characters \n(abcdefghijklmnopqrstuvwxyz)")
             name = str(input("Enter name of person {}: ".format(row + 1)))
         lst.append(name.lower())
 
         # Year of birth has to be a four digit positive integer.
         yob = input("Enter Year of Birth of person {}: ".format(row + 1))
-        if yob.isnumeric() and int(yob) < 1900:
+        if yob.isnumeric() and (year <= int(yob) or int(yob) < 1900):
+            print("You can time travel? Teach me how!\nTill then, you will have to retype the input, we don't accept time travellers \n(so please enter a number between 1900 and {str(year)}\n")
             # Does not follow while loop - makes loop repeat.
-            print("\tThat person cannot be that old!")
             yob = "a"
 
         while not (len(yob) == 4 and yob.isnumeric()):
+            print("You are entering something other than a four digit positive integer,\nor perhaps you are a time traveller.\nPlease enter a positive integer less than the current year.")
             yob = input("Enter Year of Birth of person {}: ".format(row + 1))
             # No one is that old!
-            if yob.isnumeric() and int(yob) < 1900:
+            if yob.isnumeric() and (year <= int(yob) or int(yob) < 1900):
                 # Does not follow while loop - makes loop repeat.
-                print("\tYou aren't that old!")
+                print(f"You can time travel? Teach me how!\nTill then, you will have to retype the input, we don't accept time travellers \n(so please enter a number between 1900 and {str(year)}")
                 yob = 'a'
         lst.append(str(yob))
 
@@ -77,8 +80,13 @@ def getMainLst(rows):
 
 # Gets the main list (input) >>>
 rowInput = input("How many rows do you want: ")
-while not rowInput.isnumeric():
+if rowInput.isnumeric() and int(rowInput) > 100:
+    print("That's a lot of rows, are you sure you will be able to do it?\nBut hey, I'm not stopping you.")
+while not rowInput.isnumeric(): # - and . not allowed.
+    print("It appears you entered something other than a positive integer,\nPlease follow the given format.")
     rowInput = input("How many rows do you want: ")
+    if rowInput.isnumeric() and int(rowInput) > 100:
+        print("That's a lot of rows, are you sure you will be able to do it?\nBut hey, I'm not stopping you.")
 rowInput = int(rowInput)
 
 getMainLst(rowInput)
@@ -106,6 +114,7 @@ bar = "+{}+------+------------+".format("-" * (longest + 2))
 # Gets the input for what the user wants to sort by >>>
 sortInput = input("\nDo you want to sort by name, year of birth, or ID?\nEnter 'name', 'yob', or 'ID':  ")
 while sortInput.lower() not in ('name', 'yob', 'id'):
+    print("It appears you entered something different from the asked input,\nPlease follow the given format. (Keep in mind it is case insensitive!)")
     sortInput = input("Do you want to sort by name, year of birth, or ID?\nEnter 'name', 'yob', or 'ID':  ")
 sortInput = sortInput.lower()
 # <<<
